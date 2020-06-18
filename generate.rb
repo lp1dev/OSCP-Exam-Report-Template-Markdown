@@ -6,36 +6,25 @@
 
 #array for template choices
 templates = [
-
   {
-    name: 'User-Generated/Custom OSCP Report',
-    path: 'src/custom_OSCP_report.md'
-  },
-  {
-    name: 'TJNull (unofficial md) OffSec Template v1',
-    path: 'src/TJNull_OSCP_Report_Template.md'
-  },
-  {
-    name: 'whoisflynn improved template v3.2',
-    path: 'src/OSCP-exam-report-template_whoisflynn_v3.2.md'
-  },
-  {
-    name: 'Official Offensive Security Template v1',
-    path: 'src/OSCP-exam-report-template_OS_v1.md'
+    name: 'Fenrir Pentest Report',
+    path: 'src/fenrir_Pentest_report.md'
   }
 ]
 
 # Choose template
-puts 'Report Templace Choices:'
-templates.each_with_index do |t,i|
-  puts "#{i}. #{t[:name]}"
-end
-print 'Choose a template #:  '
-choice = gets.chomp
-src = templates[choice.to_i][:path]
-sel = templates[choice.to_i][:name]
-puts "Using #{sel}"
-puts ""
+# puts 'Report Templace Choices:'
+# templates.each_with_index do |t,i|
+#   puts "#{i}. #{t[:name]}"
+# end
+# print 'Choose a template #:  '
+# choice = gets.chomp
+# src = templates[choice.to_i][:path]
+# sel = templates[choice.to_i][:name]
+# puts "Using #{sel}"
+# puts ""
+src = templates[0][:path]
+sel = templates[0][:name]
 
 # preface
 puts "This script assumes you've already placed your writeup contents into #{src}\nIf not, press Q to exit script, place report content into desired template, and re-run script.\nIf ready & correct selection is made, press any other key to continue."
@@ -43,17 +32,30 @@ puts ""
 resp = gets.chomp
 exit if resp == 'q' || resp == 'Q'
 
-
-# Enter your OS ID
-puts 'Enter your OS ID #'
-print 'OS-'
+# Enter the report ID
+puts 'Enter the report id #'
+print 'id: '
 val = gets.chomp
-osid = 'OS-' + val
+report_id = val
+puts ""
+
+# Enter the client name
+puts 'Enter the client name #'
+print 'name: '
+val = gets.chomp
+client_name = val
+puts ""
+
+# Enter your name
+puts 'Enter your name #'
+print 'name: '
+val = gets.chomp
+name = val
 puts ""
 
 
-# Enter your primary offsec email
-puts 'Enter your primary OffSec email'
+# Enter your email
+puts 'Enter your email'
 print 'email:  '
 val = gets.chomp
 email = val
@@ -63,7 +65,7 @@ puts ""
 
 file_data = ""
 keyword = "author: "
-replacement = "author: ['#{email}', '#{osid}']"
+replacement = "author: ['#{name} (Fenrir.pro) - #{email}']"
 IO.foreach(src) do |line|
    file_data += line.gsub(/^.*#{Regexp.quote(keyword)}.*$/, replacement)
 end
@@ -102,22 +104,22 @@ end
 #array for report types
 reportType = [
   {
-    name: 'OSCP Exam Report (Only)',
-    value: 'OSCP Exam',
-    title: '# Offensive Security Exam Penetration Test Report'
+    name: "Pentest #{client_name}",
+    value: 'Test d\'Intrusion',
+    title: "# Rapport de Test d\'Intrusion #{client_name}"
   },
 
   {
-    name: 'PWK Lab Report & OSCP Exam Report',
-    value: 'PWK Lab & OSCP Exam',
-    title: '# Offensive Security Lab and Exam Penetration Test Report'
+    name: 'Intervention',
+    value: 'Rapport d\'Intervention',
+    title: "# Rapport d'Intervention #{client_name}"
   }
 ]
 
 # Choose report type
-report = 'OSCP Exam'
-title = '# Offensive Security Exam Penetration Test Report'
-sel = 'OSCP Exam Report (Only)'
+report = reportType[0][:name]
+title = reportType[0][:title]
+sel = reportType[0][:name]
 puts "Report Types:"
 
 reportType.each_with_index do |r,i|
@@ -212,68 +214,71 @@ puts ""
 
 #array for title page colour choices
 pageColour = [
-
   {
-    name: 'White',
-    value: %Q("FFFFFF")
+    name: 'FenrirBlue',
+    value: %Q("6196b4")
   },
-  {
-     name: 'Black',
-     value: %Q("000000")
-   },
-   {
-     name: 'DarkGreen',
-     value: %Q("006400")
-   },
-   {
-      name: 'Snow',
-      value: %Q("FFFAFA")
-   },
-   {
-     name: 'Crimson',
-     value: %Q("DC143C")
-    },
-   {
-     name: 'SpringGreen (mint/lively green)',
-     value: %Q("00FF7F")
-    },
-   {
-     name: 'DodgerBlue (mid/bright blue)',
-     value: %Q("1E90FF")
-    },
-   {
-     name: 'DarkSlateBlue',
-     value: %Q("483D8B")
-    },
-   {
-     name: 'Gold',
-     value: %Q("FFD700")
-    },
-   {
-     name: 'PapayaWhip (light tan)',
-     value: %Q("FFEFD5")
-    },
-   {
-     name: 'DarkOrange',
-     value: %Q("FF8C00")
-    },
-   {
-     name: 'PurpleTaupe',
-     value: %Q("50394C")
-    },
-   {
-     name: 'Drover (yellow cream)',
-     value: %Q("FFEF96")
-    },
-   {
-     name: 'custom color (user-defined hex value)',
-     value: 'custom'
-    }
+  # {
+  #   name: 'White',
+  #   value: %Q("FFFFFF")
+  # },
+  # {
+  #    name: 'Black',
+  #    value: %Q("000000")
+  #  },
+  #  {
+  #    name: 'DarkGreen',
+  #    value: %Q("006400")
+  #  },
+  #  {
+  #     name: 'Snow',
+  #     value: %Q("FFFAFA")
+  #  },
+  #  {
+  #    name: 'Crimson',
+  #    value: %Q("DC143C")
+  #   },
+  #  {
+  #    name: 'SpringGreen (mint/lively green)',
+  #    value: %Q("00FF7F")
+  #   },
+  #  {
+  #    name: 'DodgerBlue (mid/bright blue)',
+  #    value: %Q("1E90FF")
+  #   },
+  #  {
+  #    name: 'DarkSlateBlue',
+  #    value: %Q("483D8B")
+  #   },
+  #  {
+  #    name: 'Gold',
+  #    value: %Q("FFD700")
+  #   },
+  #  {
+  #    name: 'PapayaWhip (light tan)',
+  #    value: %Q("FFEFD5")
+  #   },
+  #  {
+  #    name: 'DarkOrange',
+  #    value: %Q("FF8C00")
+  #   },
+  #  {
+  #    name: 'PurpleTaupe',
+  #    value: %Q("50394C")
+  #   },
+  #  {
+  #    name: 'Drover (yellow cream)',
+  #    value: %Q("FFEF96")
+  #   },
+  #  {
+  #    name: 'custom color (user-defined hex value)',
+  #    value: 'custom'
+  #   }
 ]
 
 # Choose title page background colour
-titlepageColor = '483D8B'
-sel = 'DarkSlateBlue'
+titlepageColor = '6196b4'
+sel = 'FenrirBlue'
 puts "Title Page Background Color Options:"
 
 pageColour.each_with_index do |c,i|
@@ -385,8 +390,8 @@ end
 
 # Generating report
 puts 'Generating report...'
-pdf = "output/OSCP-#{osid}-Exam-Report.pdf"
-zipfile = "output/OSCP-#{osid}-Exam-Report.7z"
+pdf = "output/fenrir-#{report_id}-Rapport.pdf"
+zipfile = "output/fenrir-#{report_id}-Rapport.7z"
 %x(pandoc #{src} -o #{pdf} \
   --from markdown+yaml_metadata_block+raw_html \
   --template eisvogel \
@@ -399,8 +404,8 @@ zipfile = "output/OSCP-#{osid}-Exam-Report.7z"
 
 # Generating archive
 puts 'Generating password-protected 7z archive...'
-%x(7z a output/OSCP-#{osid}-Exam-Report.7z \
-  -p#{osid} \
+%x(7z a output/fenrir-#{report_id}-Rapport.7z \
+  -p#{report_id} \
   #{File.expand_path(pdf)}
 )
 
